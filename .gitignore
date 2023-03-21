@@ -9,11 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
-<<<<<<< HEAD
 NextCapitalGlobal.github.io
-=======
-build
->>>>>>> e3763f4 (add en page)
 dist-ssr
 *.local
 

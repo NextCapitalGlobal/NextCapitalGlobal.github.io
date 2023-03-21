@@ -13,24 +13,6 @@ body {
   overflow-x: hidden;
 }
 
-// a {
-//   font-weight: 500;
-//   color: #646cff;
-//   text-decoration: inherit;
-// }
-// a:hover {
-//   color: #535bf2;
-// }
-
-// a {
-//   font-weight: 500;
-//   color: #646cff;
-//   text-decoration: inherit;
-// }
-// a:hover {
-//   color: #535bf2;
-// }
-
 //font
 $font-sm: 16px;
 $font-nor: 20px;
@@ -51,6 +33,12 @@ h3 {
   background: #2D2D2D;
   font-size: $font-sm;
   padding: 16px 24px;
+  &:hover {
+    background: #404040;
+  }
+  &:focus {
+    background: #1E1E1E;
+  }
 }
 .btn-white {
   border-radius: 48px;
@@ -59,6 +47,14 @@ h3 {
   background: #FFF;
   font-size: $font-sm;
   padding: 18px 30px;
+  &:hover {
+    background: #404040;
+    color: #FFF;
+  }
+  &:focus {
+    background: #1E1E1E;
+    color: #FFF;
+  }
 }
 
 .clearfix {
@@ -91,11 +87,20 @@ h3 {
   ul {
     color: #A5A5A5;
     font-size: $font-sm;
+    a:hover {
+      color: #404040;
+    }
+    a:active {
+      color: #1E1E1E;
+    }
   }
   .lang-block {
     color: #A5A5A5;
     font-size: $font-sm;
     line-height: 22px;
+    select {
+      background: transparent;
+    }
   }
   .btn-black {
     padding-top: 12px;
@@ -265,6 +270,10 @@ h3 {
       right: 10px;
       padding-left: 42px;
       padding-right: 42px;
+      &:hover, &:focus {
+        background: #FFF;
+        color: #555;
+      }
     }
   }
 }

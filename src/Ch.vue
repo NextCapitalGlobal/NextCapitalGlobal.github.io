@@ -1,7 +1,29 @@
 <template>
-  <Nav />
+  <div class="header hidden md:block" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
+    <a href="" class="float-left logo"><img src="@/assets/logo.svg"></a>
+    <div class="float-right">
+      <div class="lang-block inline-block mr-6">
+        <img class="inline-block" src="@/assets/icon-lang.svg">
+        <select v-model="selected">
+          <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
+        </select>
+      </div>
+      <a :href="'mailto:'+email" class="btn-black inline-block">聯繫我們</a>
+    </div>
+    <nav>
+      <ul class="text-center">
+        <li class="inline-block mr-8" @click="goto('about')">關於我們</li>
+        <li class="inline-block mr-8" @click="goto('news')">最新消息</li>
+        <li class="inline-block" @click="goto('contact')">聯繫我們</li>
+      </ul>
+    </nav>
+  </div></div>
+  <div class="header block md:hidden"><div class="inner clearfix">
+    <a href="" class="float-left logo"><img src="@/assets/logo.svg"></a>
+    <button class="float-right menu"><img src="@/assets/icon-menu.svg"></button>
+  </div></div>
   <!-- main -->
-  <div class="main-container">
+  <div class="main-container" ref="about">
     <p class="mb-2">Next Capital</p>
     <h1 class="mb-6">Next Capital<br>推動<p class="highlight">金融科技</p>未來發展</h1>
     <div class="md:w-3/5">
@@ -38,7 +60,26 @@
       </div>
     </div>
   </div>
-  <News />
+  <!-- news -->
+  <div class="news-container" ref="news">
+    <div class="clearfix mb-8">
+      <h3 class="float-left">最新消息</h3>
+      <div class="float-right hidden md:block">
+        <button class="btn-prev"><img src="@/assets/icon-prev.svg"></button>
+        <button class="btn-next"><img src="@/assets/icon-next.svg"></button>
+      </div>
+    </div>
+    <div class="block md:flex">
+      <div class="basis-1/3 news-block" v-for="row in news"><a :href="row.url" target="_blank">
+        <div class="thumb-block"><img src="@/assets/news-thumb.png"></div>
+        <div class="content-block">
+          <p class="title" v-text="row.title"></p>
+          <p>活動期間<br>{{row.date}}</p>
+          <p v-text="row.intro"></p>
+        </div>
+      </a></div>
+    </div>
+  </div>
   <!-- intro -->
   <div class="intro-container">
     <h3 class="text-center">擁有你的 <p class="highlight">MasterCard</p></h3>
@@ -52,12 +93,12 @@
     </div>
   </div>
   <!-- contact -->
-  <div class="contact-container">
+  <div class="contact-container" ref="contact">
     <div class="inquiry-block clearfix">
       <h3>對 Next Capital 有興趣嗎？</h3>
-      <a href="" class="float-right btn-white hidden md:block">聯絡我們</a>
+      <a :href="'mailto:'+email" class="float-right btn-white hidden md:block">聯絡我們</a>
       <p class="mt-5">立即諮詢業務專員</p>
-      <a href="" class="btn-white mt-6 inline-block md:hidden">聯絡我們</a>
+      <a :href="'mailto:'+email" class="btn-white mt-6 inline-block md:hidden">聯絡我們</a>
     </div>
     <div class="subscribe-block">
       <h3 class="m-0 mb-8">闞注我們的最新動態</h3>
@@ -69,12 +110,112 @@
       <button class="mt-3 btn-white block md:hidden">訂閱</button>
     </div>
   </div>
-  <Footer />
+  <!-- footer -->
+  <footer><div class="clearfix">
+    <img src="@/assets/logo-white.svg" class="md:float-left logo">
+    <ul class="hidden md:inline-block md:float-right">
+      <li class="inline-block mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
+      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
+    </ul>
+    <nav>
+      <ul class="my-12 md:my-0 md:text-center">
+        <li class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('about')">關於我們</li>
+        <li  class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('news')">最新消息</li>
+        <li class="md:inline-block" @click="goto('contact')">聯繫我們</li>
+      </ul>
+    </nav>
+    <ul class="block md:hidden">
+      <li class="inline-block mr-4 md:mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
+      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
+    </ul>
+  </div></footer>
 </template>
 
-<script setup>
-import Nav from './components/Ch/Nav.vue'
-import Footer from './components/Ch/Footer.vue'
-import News from './components/Ch/News.vue'
+<script>
+export default {
+  data() {
+    return {
+      isFixed: false,
+      email: "contact@nextcapital.global",
+      fb: "https://www.facebook.com/NextCapitalGlobal/",
+      langs: [{
+        'title': '中文', 
+        'value': 'ch'
+      },{
+        'title': '英文', 
+        'value': 'en'
+      }],
+      selected: 'ch',
+      news: [
+        {
+          "title": "新戶刷卡或完成任務享最高回饋NT$486",
+          "date": "2022-01-22-2022-12-30",
+          "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        },
+        {
+          "title": "新戶刷卡或完成任務享最高回饋NT$486",
+          "date": "2022-01-22 - 2022-12-30",
+          "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        },
+        {
+          "title": "新戶刷卡或完成任務享最高回饋NT$486",
+          "date": "2022-01-22 - 2022-12-30",
+          "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        }
+      ]
+    }
+  },
+  mounted() {
+    this.detectDevice();
+  },
+  watch: {
+    selected: (value) => {
+      if(value === 'en') {
+        window.location.href = "en.html";
+      }
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.detectDevice);
+    window.addEventListener('scroll', this.scrollHeight);
 
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.detectDevice);
+    window.removeEventListener('scroll', this.scrollHeight);
+  },
+  methods: {
+    detectDevice() {
+      var offset = 0;
+      if(window.innerWidth > 767) {
+        offset = this.$refs.header.clientHeight;
+      }
+      document.body.style.paddingTop = offset+"px";
+    },
+    scrollHeight() {
+      var offset = this.$refs.header.clientHeight;
+      var scrolled = document.scrollingElement.scrollTop;
+
+      this.isFixed = (scrolled >= offset) ? true : false;
+    },
+    goto(selection) {
+      const el = this.$refs[selection];
+      var offset = this.$refs.header.clientHeight;
+
+      var elPosition = el.getBoundingClientRect().top;
+      var position = elPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: position,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
 </script>

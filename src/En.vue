@@ -1,7 +1,29 @@
 <template>
-  <Nav />
+  <div class="header hidden md:block" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
+    <a href="" class="float-left logo"><img src="@/assets/logo.svg"></a>
+    <div class="float-right">
+      <div class="lang-block inline-block mr-6">
+        <img class="inline-block" src="@/assets/icon-lang.svg">
+        <select v-model="selected">
+          <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
+        </select>
+      </div>
+      <a :href="'mailto:'+email" class="btn-black inline-block">Contact Us</a>
+    </div>
+    <nav>
+      <ul class="text-center">
+        <li class="inline-block mr-8" @click="goto('about')">About Us</li>
+        <li class="inline-block mr-8" @click="goto('news')">Latest News</li>
+        <li class="inline-block" @click="goto('contact')">Contact Us</li>
+      </ul>
+    </nav>
+  </div></div>
+  <div class="header block md:hidden"><div class="inner clearfix">
+    <a href="" class="float-left logo"><img src="@/assets/logo.svg"></a>
+    <button class="float-right menu"><img src="@/assets/icon-menu.svg"></button>
+  </div></div>
   <!-- main -->
-  <div class="main-container">
+  <div class="main-container" ref="about">
     <p class="mb-2">Next Capital</p>
     <h1 class="mb-6">Next Capital<br>Driving the Future of <p class="highlight">Fintech</p></h1>
     <div class="md:w-3/5">
@@ -38,7 +60,25 @@
       </div>
     </div>
   </div>
-  <News />
+  <div class="news-container" ref="news">
+    <div class="clearfix mb-8">
+      <h3 class="float-left">Latest News:</h3>
+      <div class="float-right hidden md:block">
+        <button class="btn-prev"><img src="@/assets/icon-prev.svg"></button>
+        <button class="btn-next"><img src="@/assets/icon-next.svg"></button>
+      </div>
+    </div>
+    <div class="block md:flex">
+      <div class="basis-1/3 news-block" v-for="row in news"><a :href="row.url" target="_blank">
+        <div class="thumb-block"><img src="@/assets/news-thumb.png"></div>
+        <div class="content-block">
+          <p class="title" v-text="row.title"></p>
+          <p>Event period: {{row.date}}</p>
+          <p v-text="row.intro"></p>
+        </div>
+      </a></div>
+    </div>
+  </div>
   <!-- intro -->
   <div class="intro-container">
     <h3 class="text-center">Having your <p class="highlight">MasterCard</p></h3>
@@ -52,12 +92,12 @@
     </div>
   </div>
   <!-- contact -->
-  <div class="contact-container">
+  <div class="contact-container" ref="contact">
     <div class="inquiry-block clearfix">
       <h3>Interested in Next Capital?</h3>
-      <a href="" class="float-right btn-white hidden md:block">Contact us.</a>
+      <a :href="'mailto:'+email" class="float-right btn-white hidden md:block">Contact us.</a>
       <p class="mt-5">Consult our business specialist now.</p>
-      <a href="" class="btn-white mt-6 inline-block md:hidden">Contact us.</a>
+      <a :href="'mailto:'+email" class="btn-white mt-6 inline-block md:hidden">Contact us.</a>
     </div>
     <div class="subscribe-block">
       <h3 class="m-0 mb-8">Stay updated with our latest news and updates.</h3>
@@ -69,12 +109,112 @@
       <button class="mt-3 btn-white block md:hidden">Subscribe</button>
     </div>
   </div>
-  <Footer />
+  <footer><div class="clearfix">
+    <img src="@/assets/logo-white.svg" class="md:float-left logo">
+    <ul class="hidden md:inline-block md:float-right">
+      <li class="inline-block mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
+      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
+    </ul>
+    <nav>
+      <ul class="my-12 md:my-0 md:text-center">
+        <li class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('about')">About Us</li>
+        <li  class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('news')">Latest News</li>
+        <li class="md:inline-block" @click="goto('contact')">Contact Us</li>
+      </ul>
+    </nav>
+    <ul class="block md:hidden">
+      <li class="inline-block mr-4 md:mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
+      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
+    </ul>
+  </div></footer>
 </template>
 
-<script setup>
-import Nav from './components/En/Nav.vue'
-import Footer from './components/En/Footer.vue'
-import News from './components/En/News.vue'
+<script>
+export default {
+  data() {
+    return {
+      isFixed: false,
+      email: "contact@nextcapital.global",
+      fb: "https://www.facebook.com/NextCapitalGlobal/",
+      langs: [{
+        'title': 'Chinese', 
+        'value': 'ch'
+      },{
+        'title': 'English', 
+        'value': 'en'
+      }],
+      selected: 'en',
+      news: [
+        {
+          "title": "New users can earn up to NT$486 in rewards for completing credit card transactions or tasks.",
+          "date": "2022-01-22 to 2022-12-30.",
+          "intro": "For new accounts activated during the event period, completing any of the following scenarios by the end of the following month will qualify for a cashback reward of NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        },
+        {
+          "title": "New users can earn up to NT$486 in rewards for completing credit card transactions or tasks.",
+          "date": "2022-01-22 to 2022-12-30.",
+          "intro": "For new accounts activated during the event period, completing any of the following scenarios by the end of the following month will qualify for a cashback reward of NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        },
+        {
+          "title": "New users can earn up to NT$486 in rewards for completing credit card transactions or tasks.",
+          "date": "2022-01-22 to 2022-12-30.",
+          "intro": "For new accounts activated during the event period, completing any of the following scenarios by the end of the following month will qualify for a cashback reward of NT$366 …",
+          "thumbnail": "",
+          "url": ""
+        },
+      ]
+    }
+  },
+  mounted() {
+    this.detectDevice();
+  },
+  watch: {
+    selected: (value) => {
+      if(value === 'ch') {
+        //goto ch page
+        window.location.href = "index.html";
+      }
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.detectDevice);
+    window.addEventListener('scroll', this.scrollHeight);
 
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.detectDevice);
+    window.removeEventListener('scroll', this.scrollHeight);
+  },
+  methods: {
+    detectDevice() {
+      var offset = 0;
+      if(window.innerWidth > 767) {
+        offset = this.$refs.header.clientHeight;
+      }
+      document.body.style.paddingTop = offset+"px";
+    },
+    scrollHeight() {
+      var offset = this.$refs.header.clientHeight;
+      var scrolled = document.scrollingElement.scrollTop;
+
+      this.isFixed = (scrolled >= offset) ? true : false;
+    },
+    goto(selection) {
+      const el = this.$refs[selection];
+      var offset = this.$refs.header.clientHeight;
+
+      var elPosition = el.getBoundingClientRect().top;
+      var position = elPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: position,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
 </script>

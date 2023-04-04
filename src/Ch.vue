@@ -119,9 +119,9 @@
       <label class="subscribe-form">
         <img src="@/assets/icon-mail-border.svg" class="pointer-events-none icon">
         <input type="email" placeholder="輸入您的信箱" class="md:w-1/2">
-        <button class="btn-white hidden md:inline-block">訂閱</button>
+        <a class="btn-white hidden md:inline-block" href="mailto:contact@nextcapital.global?subject=NextCapital%20關注最新動態&body=您好，%0A我要關注最新動態～ %0A%0A謝謝">訂閱</a>
       </label>
-      <button class="mt-3 btn-white block md:hidden">訂閱</button>
+      <a class="mt-3 btn-white block md:hidden" href="mailto:contact@nextcapital.global?subject=NextCapital%20關注最新動態&body=您好，%0A我要關注最新動態～ %0A%0A謝謝">訂閱</a>
     </div>
   </div>
   <!-- footer -->

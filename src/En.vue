@@ -118,9 +118,9 @@
       <label class="subscribe-form">
         <img src="@/assets/icon-mail-border.svg" class="pointer-events-none icon">
         <input type="email" placeholder="Enter your email address." class="md:w-1/2">
-        <button class="btn-white hidden md:inline-block">Subscribe</button>
+        <a class="btn-white hidden md:inline-block" href="mailto:contact@nextcapital.global?subject=NextCapital%20subscribe%20the%20latest%20NEWS&body=Hi%20NextCapital%0ASubscribe%20the%20latest%20NEWS%0A%0AThank%20you">Subscribe</a>
       </label>
-      <button class="mt-3 btn-white block md:hidden">Subscribe</button>
+      <a class="mt-3 btn-white block md:hidden" href="mailto:contact@nextcapital.global?subject=NextCapital%20subscribe%20the%20latest%20NEWS&body=Hi%20NextCapital%0ASubscribe%20the%20latest%20NEWS%0A%0AThank%20you">Subscribe</a>
     </div>
   </div>
   <footer><div class="clearfix">
@@ -228,7 +228,7 @@ export default {
         //close menu
         this.toggleMobileMenu('close');
       }
-      
+
       const el = this.$refs[selection];
       var offset = this.$refs.header.clientHeight;
 

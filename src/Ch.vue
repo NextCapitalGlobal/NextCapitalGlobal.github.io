@@ -12,14 +12,30 @@
       <a :href="'mailto:'+email" class="btn-black inline-block">聯繫我們</a>
     </div>
     <nav class="hidden md:block">
-      <ul class="text-center">
+      <ul class="menu text-center">
         <li class="inline-block mr-8" @click="goto('about')">關於我們</li>
         <li class="inline-block mr-8" @click="goto('news')">最新消息</li>
         <li class="inline-block" @click="goto('contact')">聯繫我們</li>
       </ul>
     </nav>
-    <button class="block md:hidden float-right menu"><img src="@/assets/icon-menu.svg"></button>
+    <button class="block md:hidden float-right btn-mobile-menu" @click="toggleMobileMenu('open')"><img src="@/assets/icon-menu.svg"></button>
   </div></div>
+  <div class="block md:hidden mobile-menu-container" ref="mobileMenu">
+    <button class="block md:hidden float-right btn-mobile-menu" @click="toggleMobileMenu('close')"><img src="@/assets/icon-close.svg"></button>
+    <nav>
+      <ul class="menu mt-8 mb-8">
+        <li class="mb-8" @click="goto('about')">關於我們</li>
+        <li class="mb-8" @click="goto('news')">最新消息</li>
+        <li @click="goto('contact')">聯繫我們</li>
+      </ul>
+    </nav>
+    <div class="lang-block">
+      <img class="inline-block" src="@/assets/icon-lang.svg">
+      <select v-model="selected">
+        <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
+      </select>
+    </div>
+  </div>
   <!-- main -->
   <div class="main-container" ref="about">
     <p class="mb-2">Next Capital</p>
@@ -134,6 +150,7 @@ export default {
   data() {
     return {
       isFixed: false,
+      device: "desktop",
       email: "contact@nextcapital.global",
       fb: "https://www.facebook.com/NextCapitalGlobal/",
       langs: [{
@@ -190,8 +207,10 @@ export default {
   },
   methods: {
     detectDevice() {
+      this.device = (window.innerWidth > 767) ? 'desktop' : 'mobile';
+
       var offset = 0;
-      if(window.innerWidth > 767) {
+      if(this.device === 'desktop') {
         offset = this.$refs.header.clientHeight;
       }
 
@@ -201,13 +220,18 @@ export default {
       var offset = this.$refs.header.clientHeight;
       var scrolled = document.scrollingElement.scrollTop;
 
-      if(window.innerWidth > 767) {
+      if(this.device === 'desktop') {
         this.isFixed = (scrolled >= offset) ? true : false;
       } else {
         this.isFixed = (scrolled >= 50) ? true : false;
       }
     },
     goto(selection) {
+      if(this.device === 'mobile') {
+        //close menu
+        this.toggleMobileMenu('close');
+      }
+
       const el = this.$refs[selection];
       var offset = this.$refs.header.clientHeight;
 
@@ -218,6 +242,15 @@ export default {
         top: position,
         behavior: 'smooth'
       });
+    },
+    toggleMobileMenu(type) {
+      if(type === 'open') {
+        document.body.style.overflowY = "hidden";
+        this.$refs.mobileMenu.classList.add('active');
+      } else {
+        document.body.style.overflowY = "auto";
+        this.$refs.mobileMenu.classList.remove('active');
+      }
     }
   }
 }

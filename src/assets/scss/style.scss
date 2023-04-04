@@ -85,33 +85,35 @@ h3 {
     padding: 40px 8vw;
   }
 
-  ul {
-    color: #A5A5A5;
-    font-size: $font-sm;
-    li {
-      cursor: pointer;
-    }
-    li:hover {
-      color: #404040;
-    }
-    li:active {
-      color: #1E1E1E;
-    }
-  }
-  .lang-block {
-    color: #A5A5A5;
-    font-size: $font-sm;
-    line-height: 22px;
-    select {
-      background: transparent;
-    }
-  }
   .btn-black {
     padding-top: 12px;
     padding-bottom: 12px;
   }
 
 }
+
+.menu {
+  color: #A5A5A5;
+  font-size: $font-sm;
+  li {
+    cursor: pointer;
+  }
+  li:hover {
+    color: #404040;
+  }
+  li:active {
+    color: #1E1E1E;
+  }
+}
+.lang-block {
+  color: #A5A5A5;
+  font-size: $font-sm;
+  line-height: 22px;
+  select {
+    background: transparent;
+  }
+}
+
 .main-container {
   color: #7D7D7D;
   margin: 60px 90px 60px 90px; 
@@ -321,10 +323,7 @@ footer {
   }
 
   .header {
-    //todo: scroll-top > 128px
-    // background: #FAFAFA;
     line-height: 48px;
-
     .inner {
       padding: 8vw;
       max-width: 100vw;
@@ -335,6 +334,24 @@ footer {
         height: 100%;
         width: auto;
       }
+    }
+  }
+
+  .mobile-menu-container {
+    padding: 8vw;
+    width: 100vw;
+    height: 100vh;
+    background: #FFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1002;
+    transform: translateY(100vh);
+    -ms-transform: translateX(100vh);
+
+    &.active {
+      transform: translateY(0vh);
+      -ms-transform: translateX(0vh);
     }
   }
 

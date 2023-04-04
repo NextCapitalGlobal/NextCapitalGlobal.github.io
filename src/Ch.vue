@@ -85,7 +85,7 @@
     </div>
     <div class="block md:flex">
       <div class="basis-1/3 news-block" v-for="row in news"><a :href="row.url" target="_blank">
-        <div class="thumb-block"><img :src="row.thumbnail"></div>
+        <div class="thumb-block"><img src="@/assets/news-thumb.png"></div>
         <div class="content-block">
           <p class="title" v-text="row.title"></p>
           <p>活動期間<br>{{row.date}}</p>

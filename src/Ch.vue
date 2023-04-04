@@ -1,7 +1,8 @@
 <template>
-  <div class="header hidden md:block" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
+  <div class="header" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
     <a href="/" class="float-left logo"><img src="@/assets/logo.svg"></a>
-    <div class="float-right">
+
+    <div class="hidden md:block float-right">
       <div class="lang-block inline-block mr-6">
         <img class="inline-block" src="@/assets/icon-lang.svg">
         <select v-model="selected">
@@ -10,17 +11,14 @@
       </div>
       <a :href="'mailto:'+email" class="btn-black inline-block">聯繫我們</a>
     </div>
-    <nav>
+    <nav class="hidden md:block">
       <ul class="text-center">
         <li class="inline-block mr-8" @click="goto('about')">關於我們</li>
         <li class="inline-block mr-8" @click="goto('news')">最新消息</li>
         <li class="inline-block" @click="goto('contact')">聯繫我們</li>
       </ul>
     </nav>
-  </div></div>
-  <div class="header block md:hidden"><div class="inner clearfix">
-    <a href="" class="float-left logo"><img src="@/assets/logo.svg"></a>
-    <button class="float-right menu"><img src="@/assets/icon-menu.svg"></button>
+    <button class="block md:hidden float-right menu"><img src="@/assets/icon-menu.svg"></button>
   </div></div>
   <!-- main -->
   <div class="main-container" ref="about">
@@ -71,7 +69,7 @@
     </div>
     <div class="block md:flex">
       <div class="basis-1/3 news-block" v-for="row in news"><a :href="row.url" target="_blank">
-        <div class="thumb-block"><img src="@/assets/news-thumb.png"></div>
+        <div class="thumb-block"><img :src="row.thumbnail"></div>
         <div class="content-block">
           <p class="title" v-text="row.title"></p>
           <p>活動期間<br>{{row.date}}</p>
@@ -151,21 +149,21 @@ export default {
           "title": "新戶刷卡或完成任務享最高回饋NT$486",
           "date": "2022-01-22-2022-12-30",
           "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
-          "thumbnail": "",
+          "thumbnail": "/assets/news-thumb.png",
           "url": ""
         },
         {
           "title": "新戶刷卡或完成任務享最高回饋NT$486",
           "date": "2022-01-22 - 2022-12-30",
           "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
-          "thumbnail": "",
+          "thumbnail": "/assets/news-thumb.png",
           "url": ""
         },
         {
           "title": "新戶刷卡或完成任務享最高回饋NT$486",
           "date": "2022-01-22 - 2022-12-30",
           "intro": "帳戶啟用後次月底前符合以下任一情境，即享現金回饋NT$366 …",
-          "thumbnail": "",
+          "thumbnail": "/assets/news-thumb.png",
           "url": ""
         }
       ]
@@ -196,13 +194,18 @@ export default {
       if(window.innerWidth > 767) {
         offset = this.$refs.header.clientHeight;
       }
+
       document.body.style.paddingTop = offset+"px";
     },
     scrollHeight() {
       var offset = this.$refs.header.clientHeight;
       var scrolled = document.scrollingElement.scrollTop;
 
-      this.isFixed = (scrolled >= offset) ? true : false;
+      if(window.innerWidth > 767) {
+        this.isFixed = (scrolled >= offset) ? true : false;
+      } else {
+        this.isFixed = (scrolled >= 50) ? true : false;
+      }
     },
     goto(selection) {
       const el = this.$refs[selection];

@@ -1,41 +1,5 @@
 <template>
-  <div class="header" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
-    <a href="/" class="float-left logo"><img src="@/assets/logo.svg"></a>
-
-    <div class="hidden md:block float-right">
-      <div class="lang-block inline-block mr-6">
-        <img class="inline-block" src="@/assets/icon-lang.svg">
-        <select v-model="selected">
-          <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
-        </select>
-      </div>
-      <a :href="'mailto:'+email" class="btn-black inline-block">聯繫我們</a>
-    </div>
-    <nav class="hidden md:block">
-      <ul class="menu text-center">
-        <li class="inline-block mr-8" @click="goto('about')">關於我們</li>
-        <li class="inline-block mr-8" @click="goto('news')">最新消息</li>
-        <li class="inline-block" @click="goto('contact')">聯繫我們</li>
-      </ul>
-    </nav>
-    <button class="block md:hidden float-right btn-mobile-menu" @click="toggleMobileMenu('open')"><img src="@/assets/icon-menu.svg"></button>
-  </div></div>
-  <div class="block md:hidden mobile-menu-container" ref="mobileMenu">
-    <button class="block md:hidden float-right btn-mobile-menu" @click="toggleMobileMenu('close')"><img src="@/assets/icon-close.svg"></button>
-    <nav>
-      <ul class="menu mt-8 mb-8">
-        <li class="mb-8" @click="goto('about')">關於我們</li>
-        <li class="mb-8" @click="goto('news')">最新消息</li>
-        <li @click="goto('contact')">聯繫我們</li>
-      </ul>
-    </nav>
-    <div class="lang-block">
-      <img class="inline-block" src="@/assets/icon-lang.svg">
-      <select v-model="selected">
-        <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
-      </select>
-    </div>
-  </div>
+  <Header :lang=lang :langs=langs :menu=menu :email=email :contact_btn=contact_btn />
   <!-- main -->
   <div class="main-container" ref="about">
     <p class="mb-2">Next Capital</p>
@@ -146,21 +110,39 @@
 </template>
 
 <script>
+import Header from './components/Header.vue'
+
 export default {
   data() {
     return {
-      isFixed: false,
-      device: "desktop",
       email: "contact@nextcapital.global",
       fb: "https://www.facebook.com/NextCapitalGlobal/",
-      langs: [{
-        'title': '中文', 
-        'value': 'ch'
-      },{
-        'title': '英文', 
-        'value': 'en'
-      }],
-      selected: 'ch',
+      langs: [
+        {
+          'title': '中文', 
+          'value': 'ch'
+        },
+        {
+          'title': '英文', 
+          'value': 'en'
+        }
+      ],
+      lang: 'ch',
+      menu: [
+        {
+          'title': '關於我們',
+          'value': 'about'
+        },
+        {
+          'title': '最新消息',
+          'value': 'news'
+        },
+        {
+          'title': '聯繫我們',
+          'value': 'contact'
+        }
+      ],
+      contact_btn: "聯繫我們",
       news: [
         {
           "title": "新戶刷卡或完成任務享最高回饋NT$486",
@@ -186,55 +168,12 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.detectDevice();
-  },
-  watch: {
-    selected: (value) => {
-      if(value === 'en') {
-        window.location.href = "en.html";
-      }
-    }
-  },
-  created() {
-    window.addEventListener('resize', this.detectDevice);
-    window.addEventListener('scroll', this.scrollHeight);
-
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.detectDevice);
-    window.removeEventListener('scroll', this.scrollHeight);
+  components: {
+    Header
   },
   methods: {
-    detectDevice() {
-      this.device = (window.innerWidth > 767) ? 'desktop' : 'mobile';
-
-      var offset = 0;
-      if(this.device === 'desktop') {
-        offset = this.$refs.header.clientHeight;
-      }
-
-      document.body.style.paddingTop = offset+"px";
-    },
-    scrollHeight() {
-      var offset = this.$refs.header.clientHeight;
-      var scrolled = document.scrollingElement.scrollTop;
-
-      if(this.device === 'desktop') {
-        this.isFixed = (scrolled >= offset) ? true : false;
-      } else {
-        this.isFixed = (scrolled >= 50) ? true : false;
-      }
-    },
-    goto(selection) {
-      if(this.device === 'mobile') {
-        //close menu
-        this.toggleMobileMenu('close');
-      }
-
+    goto(selection, offset) {
       const el = this.$refs[selection];
-      var offset = this.$refs.header.clientHeight;
-
       var elPosition = el.getBoundingClientRect().top;
       var position = elPosition + window.pageYOffset - offset;
 
@@ -243,15 +182,6 @@ export default {
         behavior: 'smooth'
       });
     },
-    toggleMobileMenu(type) {
-      if(type === 'open') {
-        document.body.style.overflowY = "hidden";
-        this.$refs.mobileMenu.classList.add('active');
-      } else {
-        document.body.style.overflowY = "auto";
-        this.$refs.mobileMenu.classList.remove('active');
-      }
-    }
   }
 }
 </script>

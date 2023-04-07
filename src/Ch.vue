@@ -14,7 +14,7 @@
   </div>
   <div class="feature-container">
     <p class="mb-10 title">安全可靠的 NEXT 協助你</p>
-    <div class="block md:flex md:flex-row">
+    <div class="block md:flex md:flex-row md:w-full">
       <div class="basis-1/3 feature-block block md:flex md:flex-nowrap">
         <button class="flex-none icon"><img src="@/assets/icon-money.svg"></button>
         <div>

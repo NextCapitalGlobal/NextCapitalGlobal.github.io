@@ -1,5 +1,5 @@
 <template>
-  <div class="header" ref="header" :class="{'active': isFixed}"><div class="inner clearfix">
+  <div id="header" class="header" :class="{'active': isFixed}"><div class="inner clearfix">
     <a href="/" class="float-left logo"><img src="@/assets/logo.svg"></a>
 
     <div class="hidden md:block float-right">
@@ -27,7 +27,7 @@
     </nav>
     <div class="lang-block">
       <img class="inline-block" src="@/assets/icon-lang.svg">
-      <select :value="lang" @change="$emit('lang', $event.target.value)">
+      <select :value="lang" @change="updateLang($event.target.value)">
         <option v-for="row in langs" v-text="row.title" :value="row.value"></option>
       </select>
     </div>
@@ -67,13 +67,13 @@ export default {
 
       var offset = 0;
       if(this.device === 'desktop') {
-        offset = this.$refs.header.clientHeight;
+        offset = document.getElementById('header').clientHeight;
       }
 
       document.body.style.paddingTop = offset+"px";
     },
     scrollHeight() {
-      var offset = this.$refs.header.clientHeight;
+      var offset = document.getElementById('header').clientHeight;
       var scrolled = document.scrollingElement.scrollTop;
 
       if(this.device === 'desktop') {
@@ -87,7 +87,7 @@ export default {
         this.toggleMobileMenu('close');
       }
 
-      this.$parent.goto(selection, this.$refs.header.clientHeight);
+      this.$parent.goto(selection);
     },
     toggleMobileMenu(type) {
       if(type === 'open') {

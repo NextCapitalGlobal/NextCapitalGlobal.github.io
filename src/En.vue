@@ -87,28 +87,12 @@
       <a class="mt-3 btn-white block md:hidden" href="mailto:contact@nextcapital.global?subject=NextCapital%20subscribe%20the%20latest%20NEWS&body=Hi%20NextCapital%0ASubscribe%20the%20latest%20NEWS%0A%0AThank%20you">Subscribe</a>
     </div>
   </div>
-  <footer><div class="clearfix">
-    <img src="@/assets/logo-white.svg" class="md:float-left logo">
-    <ul class="hidden md:inline-block md:float-right">
-      <li class="inline-block mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
-      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
-    </ul>
-    <nav>
-      <ul class="my-12 md:my-0 md:text-center">
-        <li class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('about')">About Us</li>
-        <li  class="md:inline-block mr-8 mb-10 md:mb-0" @click="goto('news')">Latest News</li>
-        <li class="md:inline-block" @click="goto('contact')">Contact Us</li>
-      </ul>
-    </nav>
-    <ul class="block md:hidden">
-      <li class="inline-block mr-4 md:mr-2.5"><a :href="'mailto:'+email"><img src="@/assets/icon-mail.svg"></a></li>
-      <li class="inline-block"><a :href="fb" target="_blank"><img src="@/assets/icon-facebook.svg"></a></li>
-    </ul>
-  </div></footer>
+  <Footer :menu=menu :email=email :fb=fb />
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   data() {
@@ -164,11 +148,13 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    Footer
   },
   methods: {
-    goto(selection, offset) {
+    goto(selection) {
       const el = this.$refs[selection];
+      var offset = document.getElementById('header').clientHeight;
       var elPosition = el.getBoundingClientRect().top;
       var position = elPosition + window.pageYOffset - offset;
 
@@ -176,7 +162,7 @@ export default {
         top: position,
         behavior: 'smooth'
       });
-    },
+    }
   }
 }
 </script>

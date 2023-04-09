@@ -183,13 +183,13 @@ h3 {
     display: none;
   }
   .carousel__prev {
-    background: #FFF url(../icon-prev.svg) scroll no-repeat 50% 50%;
+    background: transparent url(../icon-prev.svg) scroll no-repeat 50% 50%;
     background-size: contain;
     right: 56px;
     left: inherit;
   }
   .carousel__next {
-    background: #FFF url(../icon-next.svg) scroll no-repeat 50% 50%;
+    background: transparent url(../icon-next.svg) scroll no-repeat 50% 50%;
     background-size: contain;
   }
   .news-block {

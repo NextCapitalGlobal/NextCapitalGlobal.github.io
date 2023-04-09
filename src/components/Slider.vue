@@ -1,12 +1,12 @@
 <template>
   <div class="clearfix mb-8">
-    <h3 class="float-left" v-text="title"></h3>
+    <h3 class="float-left" v-text="news.title"></h3>
   </div>
   <!-- desktop -->
   <Carousel :settings="settings" class="hidden md:block">
-    <Slide v-for="(row, index) in news" :key="index">
+    <Slide v-for="(row, index) in news.content" :key="index">
       <div class="carousel__item news-block mr-8"><a :href="row.url" target="_blank">
-        <div class="thumb-block"><img src="@/assets/news-thumb.png"></div>
+        <div class="thumb-block"><img :src="row.thumbnail"></div>
         <div class="content-block">
           <p class="title" v-text="row.title"></p>
           <p v-html="row.date"></p>
@@ -20,8 +20,8 @@
   </Carousel>
   <!-- mobile -->
   <div class="block md:hidden">
-    <div class="news-block" v-for="row in news"><a :href="row.url" target="_blank">
-      <div class="thumb-block"><img class="w-full" src="@/assets/news-thumb.png"></div>
+    <div class="news-block" v-for="row in news.content"><a :href="row.url" target="_blank">
+      <div class="thumb-block"><img class="w-full" :src="row.thumbnail"></div>
       <div class="content-block">
         <p class="title" v-text="row.title"></p>
         <p v-html="row.date"></p>
@@ -44,8 +44,7 @@ export default defineComponent({
     Navigation,
   },
   props: {
-    news: Array,
-    title: String
+    news: Object
   },
   data: () => ({
     settings: {

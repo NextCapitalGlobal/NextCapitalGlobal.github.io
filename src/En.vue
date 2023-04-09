@@ -37,7 +37,7 @@ import Card from './components/Card.vue'
 import Footer from './components/Footer.vue'
 
 function imageUrl(image) {
-  return new URL('/src/assets/'+image, import.meta.url);
+  return new URL(`./assets/${image}`, import.meta.url).href;
 }
 
 export default {

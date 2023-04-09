@@ -47,30 +47,30 @@ export default {
       fb: "https://www.facebook.com/NextCapitalGlobal/",
       langs: [
         {
-          'title': '中文', 
-          'value': 'ch'
+          'title': 'English', 
+          'value': 'en'
         },
         {
-          'title': '英文', 
-          'value': 'en'
+          'title': 'Chinese', 
+          'value': 'ch'
         }
       ],
-      lang: 'ch',
+      lang: 'en',
       menu: [
         {
-          'title': '關於我們',
+          'title': 'About Us',
           'value': 'about'
         },
         {
-          'title': '最新消息',
+          'title': 'Latest News',
           'value': 'news'
         },
         {
-          'title': '聯繫我們',
+          'title': 'Contact Us',
           'value': 'contact'
         }
       ],
-      contact_btn: "聯繫我們",
+      contact_btn: "Contact us",
       intro: {
         name: "Next Capital",
         title: "Next Capital<br>Driving the Future of <p class='highlight'>Fintech</p>",

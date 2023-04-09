@@ -150,7 +150,7 @@ export default {
         btn: "聯絡我們"
       },
       subscribe: {
-        title: "闞注我們的最新動態",
+        title: "關注我們的最新動態",
         email_default_msg: "輸入您的信箱",
         link: "mailto:contact@nextcapital.global?subject=NextCapital%20關注最新動態&body=您好，%0A我要關注最新動態～ %0A%0A謝謝",
         btn: "訂閱"

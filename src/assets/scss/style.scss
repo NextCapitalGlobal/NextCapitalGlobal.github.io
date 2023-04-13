@@ -368,8 +368,8 @@ footer {
     top: 0;
     left: 0;
     z-index: 1002;
-    transform: translateY(100vh);
-    -ms-transform: translateX(100vh);
+    transform: translateY(-100vh);
+    -ms-transform: translateX(-100vh);
 
     &.active {
       transform: translateY(0vh);

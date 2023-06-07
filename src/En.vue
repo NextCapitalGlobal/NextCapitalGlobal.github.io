@@ -11,10 +11,6 @@
   <div class="feature-container">
     <Feature :feature=feature />
   </div>
-  <!-- news -->
-  <div class="news-container" ref="news">
-    <Slider :news=news />
-  </div>
   <!-- intro -->
   <div class="intro-container">
     <Card :card=card />
@@ -30,7 +26,6 @@
 <script>
 import Header from './components/Header.vue'
 import Intro from './components/Intro.vue'
-import Slider from './components/Slider.vue'
 import Feature from './components/Feature.vue'
 import Contact from './components/Contact.vue'
 import Card from './components/Card.vue'
@@ -47,11 +42,11 @@ export default {
       fb: "https://www.facebook.com/NextCapitalGlobal/",
       langs: [
         {
-          'title': 'English', 
+          'title': 'English',
           'value': 'en'
         },
         {
-          'title': 'Chinese', 
+          'title': 'Chinese',
           'value': 'ch'
         }
       ],
@@ -60,10 +55,6 @@ export default {
         {
           'title': 'About Us',
           'value': 'about'
-        },
-        {
-          'title': 'Latest News',
-          'value': 'news'
         },
         {
           'title': 'Contact Us',
@@ -146,7 +137,6 @@ export default {
   components: {
     Header,
     Intro,
-    Slider,
     Feature,
     Card,
     Contact,
